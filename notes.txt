@@ -170,24 +170,89 @@ Note - All these are run on workstation
   106  cd ..
   107  ls -lret
   108  ls -lrt
-  109  knife cookbook upload apache
-  110  git add .
-  111  git commit -am "Basic apache cookbook"
-  112  git push -u origin master
-  113  hisotry
-  114  history
+
+uploading cookbook to server
+----------------------------
+
+  109  knife cookbook upload apache   -----> uploads the cookboook to the server
 
 
+Creating a runlist
+--------------------
+
+  123  knife node list   ------> Lists nodes that are manged
+  124  knife node run_list add muralilalogin4.mylabserver.com 'recipe[apache]'  --------> adds the uploaded cookbook to the runlist
+  125  knife node show muralilalogin4.mylabserver.com ------> show the node details including the runlist that is supposed to running
+  126  knife node show -l muralilalogin4.mylabserver.com  ----> display the full node objects, 
+
+  TIP --> Change the metadata rb file to upload a new version of the cookbook to the server.
+
+  To alter the order of execution in the run list  -a means after -b means before ---->
+  knife node run_list add muralilalogin4.mylabserver.com 'recipe[apache::websites]' -b recipe[apache]
+
+  Remove multiple run recipies
+  ------------------------
+  knife node run_list remove muralilalogin4.mylabserver.com 'recipe[apache::websites]',recipe[apache]
+
+  Add multiple recipies
+  ---------------------
+
+  knife node run_list add muralilalogin4.mylabserver.com 'recipe[apache],recipe[apache::websites]'
 
 
+ON THE NODE
+------------
+
+  Node Why run ----> Proves an o/p of a demo rum, but does not execute the command
+  -----------
+
+  root@muralilalogin4 user]# chef-client --why-run
+Starting Chef Client, version 12.18.31
+resolving cookbooks for run list: ["apache"]
+Synchronizing Cookbooks:
+  - apache (0.1.0)
+Installing Cookbook Gems:
+Compiling Cookbooks...
+Converging 2 resources
+Recipe: apache::default
+  * yum_package[apache] action install
+    * No candidate version available for https
+    * Assuming a repository that offers https would have been configured
+  * service[apache2] action start
+    * Service status not available. Assuming a prior action would have installed the service.
+    * Assuming status of not running.
+    - Would start service service[apache2]
+  * service[apache2] action enable
+    * Service status not available. Assuming a prior action would have installed the service.
+    * Assuming status of not running.
+    - Would enable service service[apache2]
+[2017-02-16T05:22:16+00:00] WARN: In why-run mode, so NOT performing node save.
+
+Running handlers:
+Running handlers complete
+Chef Client finished, 3/3 resources would have been updated
+[root@muralilalogin4 user]# 
+
+/etc/chef/client.rb -----> has the connection details for chef server
 
 
+OHAI
+----
+
+This is a tool that used to collect node information.
+
+run ohai from the prompt, return lot of data.
+This can be used in recipies and cookbooks
 
 
+Example
 
-
-
-
-
-
+[root@muralilalogin4 chef]# ohai platform_family
+[
+  "rhel"
+]
+[root@muralilalogin4 chef]# ohai ipaddress
+[
+  "172.31.25.101"
+]
 
