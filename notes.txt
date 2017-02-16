@@ -1,0 +1,193 @@
+Chef notes:
+-----------
+
+CHEF WORKSTATION
+----------------
+
+
+1. Chef RPM download
+
+	wget https://packages.chef.io/files/stable/chefdk/1.2.22/el/7/chefdk-1.2.22-1.el7.x86_64.rpm
+	
+
+2. sudo access
+
+	usermod -g wheel user
+
+3.  Syntax Check
+
+ 	 ruby -c learn.rb && foodcritic learn.rb
+
+4. Running a ruby file on local mode (Convergence)
+
+ 	chef-client --local-mode learn.rb
+
+5. Check if httpd process in running
+
+	systemctl status httpd
+
+6. Create chef cookbook
+
+	chef generate cookbook /root/workstation
+
+7. availbale commands
+
+	Available Commands:
+    exec                    Runs the command in context of the embedded ruby
+    env                     Prints environment variables used by ChefDK
+    gem                     Runs the `gem` command in context of the embedded ruby
+    generate                Generate a new app, cookbook, or component
+    shell-init              Initialize your shell to use ChefDK as your primary ruby
+    install                 Install cookbooks from a Policyfile and generate a locked cookbook set
+    update                  Updates a Policyfile.lock.json with latest run_list and cookbooks
+    push                    Push a local policy lock to a policy group on the server
+    push-archive            Push a policy archive to a policy group on the server
+    show-policy             Show policyfile objects on your Chef Server
+    diff                    Generate an itemized diff of two Policyfile lock documents
+    provision               Provision VMs and clusters via cookbook
+    export                  Export a policy lock as a Chef Zero code repo
+    clean-policy-revisions  Delete unused policy revisions on the server
+    clean-policy-cookbooks  Delete unused policyfile cookbooks on the server
+    delete-policy-group     Delete a policy group on the server
+    delete-policy           Delete all revisions of a policy on the server
+    undelete                Undo a delete command
+    verify                  Test the embedded ChefDK applications
+
+
+CHEF SERVER
+-----------
+
+ 8. Install Chef Server
+
+ 	rpm -Uvh chef-server-core.rpm 
+
+9. Reconfigure Chef server.. this run default cookbooks that is required by the chef server
+
+	chef-server-ctl reconfigure
+
+ 10. Create a user for chef server
+ 	chef-server-ctl user-create murali murali durai d.murali.k@gmail.com 'murali' --filename murali-user-rsa
+
+11. Create an organisation under Chef server
+
+	chef-server-ctl org-create muraliacademy 'Murali Academy, Inc' --association_user murali --filename MuraliAcademy-validator.pem
+
+12. Install Chef Manager console
+   chef-server-ctl install chef-manage
+
+13. Recnfigure chef manager
+	chef-manage-ctl reconfigure
+
+test console using https://<<Chef Server>>/login
+user name password created in step 10	
+
+CHEF NODE
+---------
+
+14. Create a funstion user with sudo access, added to the wheel group
+
+
+CHEF WORKSTATION
+-----------------
+
+15. Download starter kit to chef workstation from console --> Adminstration ---> org --> starter kits
+16. scp starter kit to the workstation
+17. unzip starter kit.
+18. Add consle certs to trusted certs with below
+	cd /home/user/chef-repo/.chef
+	sudo knife ssl fetch
+
+19. bootstrap node to server
+	knife bootstrap 54.214.145.112 -N muralilalogin4.mylabserver.com --ssh-user user --sudo
+
+20. Check if Chef node shows up in the mange console		
+
+
+
+GIT
+----
+
+
+ sudpo git init
+ sudo git inti
+   52  sudo git init
+   53  ls -la
+   54  sudo chown user.user -R .
+   55  ls -lrt
+   56  git add .
+   57  ls -lrt
+   58  ls -lrt .git
+   59  git commit -a m "Adding chef-repo to git"
+   60  git commit -am "Adding chef-repo to git"
+   61  git config --global user.email "d.murali.k@gmail.com"
+   62  git config --global user.name "Murali"
+   63  git remote add origin https://github.com/muraligitlogin/chef-fluency-badge.git
+   64  git push -u origin master
+
+   66  git push -u origin master
+   67  git commit -am "Adding chef-repo to git"
+   68  git push -u origin master
+   69  ls -lrt
+   70  knife cookbook create learn
+   71  ls -lrt cookbooks/
+   72  ls -lrt
+   73  pwd
+   74  git add .
+   75  git commit -am "Adding learn cookbook"
+   76  gti push -u origin master
+   77  muraligitlogin
+   78  git push -u origin master
+
+Creating Basic cookbook and uploading to the server
+---------------------------------------------------
+
+Note - All these are run on workstation
+
+82  chef generate cookbook cookbooks/apache
+   83  cd cookbooks/
+   84  ls -lrt
+   85  cd apache/
+   86  ls -lrt
+   87  vi metadata.rb 
+   88  cd recipes/
+   89  ls -lrt
+   90  vi default.rb 
+   91  vim default.rb 
+   92  ruby -c default.rb 
+   93  foodcritic default.rb 
+   94  vi default.rb 
+   95  foodcritic default.rb 
+   96  vim websites.rb
+   97  ruby -c websites.rb 
+   98  foodcritic websites.rb 
+   99  cd ..
+  100  ls -lrt
+  101  cd ..
+  102  foodcritic apache
+  103  cd apache/recipes/
+  104  ls -lrt
+  105  pwd
+  106  cd ..
+  107  ls -lret
+  108  ls -lrt
+  109  knife cookbook upload apache
+  110  git add .
+  111  git commit -am "Basic apache cookbook"
+  112  git push -u origin master
+  113  hisotry
+  114  history
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
