@@ -256,3 +256,70 @@ Example
   "172.31.25.101"
 ]
 
+
+2/16/2017
+----------
+
+594375
+
+
+knife search
+-----------
+
+            user@muralilalogin1 chef-repo]$ knife search 'platform_family:rhel'
+            1 items found
+
+            Node Name:   muralilalogin4.mylabserver.com
+            Environment: _default
+            FQDN:        muralilalogin4.mylabserver.com
+            IP:          54.214.145.112
+            Run List:    recipe[apache], recipe[apache::websites], recipe[apache::motd]
+            Roles:       
+            Recipes:     apache, apache::default, apache::websites, apache::motd
+            Platform:    centos 7.3.1611
+            Tags:        
+
+            [user@muralilalogin1 chef-repo]$ knife search 'recipies:apache'
+            0 items found
+
+            [user@muralilalogin1 chef-repo]$ knife search 'recipes:apache'
+            1 items found
+
+            Node Name:   muralilalogin4.mylabserver.com
+            Environment: _default
+            FQDN:        muralilalogin4.mylabserver.com
+            IP:          54.214.145.112
+            Run List:    recipe[apache], recipe[apache::websites], recipe[apache::motd]
+            Roles:       
+            Recipes:     apache, apache::default, apache::websites, apache::motd
+            Platform:    centos 7.3.1611
+            Tags:        
+
+            [user@muralilalogin1 chef-repo]$ 
+
+
+            user@muralilalogin1 chef-repo]$ knife search 'recipes:apache\:\:motd'
+            1 items found
+
+            Node Name:   muralilalogin4.mylabserver.com
+            Environment: _default
+            FQDN:        muralilalogin4.mylabserver.com
+            IP:          54.214.145.112
+            Run List:    recipe[apache], recipe[apache::websites], recipe[apache::motd]
+            Roles:       
+            Recipes:     apache, apache::default, apache::websites, apache::motd
+            Platform:    centos 7.3.1611
+            Tags:        
+
+            [user@muralilalogin1 chef-repo]$ 
+
+
+
+
+
+
+
+
+
+
+
