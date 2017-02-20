@@ -315,8 +315,38 @@ knife search
 
 
 
+2/20/2017
+----------
 
 
+CHEF WORKSTATION
+----------------
+
+Roles:
+
+1. Set the default editor, as it can open an editor that directly saves into the server
+  export EDITOR=$(which vim)
+
+2. Creating and editing roles
+  knife role create web
+  knife role edit web
+
+3. Assigning a role to a node
+  knife node run_list set muralilalogin4.mylabserver.com "role[web]"
+
+4. Executing chef convergence on all the nodes assigned to a specific role from a workstation
+  knife ssh "role:web" "sudo chef-client" -x user -P
+
+5. The same knife command can be used to run any unix command form the workstation to all managed nodes of the same role
+  knife ssh "role:database" "sudo systemctl status postgresql" -x user -P  
+
+TEST KITCHEN
+-----------
+
+kitchen converge - uploads the new test file
+kitchen verify - runs the test
+kitchen test ---> both the convergence and the test
+test/smoke/default/default_test.rb  ----> test file
 
 
 
